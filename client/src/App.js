@@ -4,15 +4,28 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Feed from "./pages/Feed";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/feed" element = {<Feed/>} />
+        {/* public routes */}
         <Route path = "/register" element = {<Register/>} />
         <Route path = "/login" element = {<Login/>} />
+
+        {/* protected routes */}
+        <Route path="/feed" element = {
+          <ProtectedRoute>
+            <Feed/>
+          </ProtectedRoute>
+        } />
+        <Route path="/profile/:id" element = {
+          <ProtectedRoute>
+            <Profile/>
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
   );
