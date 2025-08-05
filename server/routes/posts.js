@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllPost, createPost } = require("../controllers/postController");
+const { getAllPost, createPost, deletePost } = require("../controllers/postController");
 const authMiddleware = require("../middleware/authMiddleware");
 const router = express.Router();
 
@@ -8,4 +8,7 @@ router.get("/", getAllPost);
 
 // Authenticated post creation
 router.post("/",authMiddleware,createPost);
+
+// Delete post (auth required)
+router.delete("/:id", authMiddleware, deletePost);
 module.exports = router;

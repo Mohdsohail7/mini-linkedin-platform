@@ -12,7 +12,7 @@ exports.createPost = async (req, res) => {
         }
 
         // new post
-        const newPost = new Post({ content, author: req.user.UserId });
+        const newPost = new Post({ content, author: req.user.userId });
         await newPost.save();
 
         return res.status(201).json({ message: "Post Created.", post: newPost });
@@ -26,6 +26,28 @@ exports.getAllPost = async (req, res) => {
     try {
         const posts = await Post.find().populate("author", "name email").sort({ createdAt: -1 });
         return res.status(200).json(posts);
+    } catch (err) {
+        return res.status(500).json({ message: "Server Error", error: err.message });
+    }
+}
+
+// post delete
+exports.deletePost = async (req, res) => {
+    try {
+        const postId = req.params.id;
+        const post = await Post.findById(postId);
+        if (!post) {
+            return res.status(404).json({ message: "Post not found."});
+        }
+
+        // post by this user
+        if (post.author.toString() !== req.user.userId) {
+            return res.status(403).json({ message: "Unauthorized."});
+        }
+
+        await Post.findByIdAndDelete(postId);
+
+        return res.json({ message: "Post Deleted."})
     } catch (err) {
         return res.status(500).json({ message: "Server Error", error: err.message });
     }
