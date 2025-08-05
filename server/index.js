@@ -9,6 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const auth = require("./routes/authRoute");
+
+// Routes
+app.use("/api/auth",auth);
 
 const port  = process.env.PORT || 4000;
 connectDb().then(() => {
