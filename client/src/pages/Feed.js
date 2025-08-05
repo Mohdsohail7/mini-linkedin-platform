@@ -35,6 +35,16 @@ const Feed = () => {
     }
   };
 
+  // delete a post
+  const handleDelete = async (postId) => {
+  try {
+    await API.delete(`/posts/${postId}`);
+    setPosts(posts.filter((p) => p._id !== postId));
+  } catch (err) {
+    alert('Error deleting post');
+  }
+};
+
   return (
     <div className="container">
       <h2>Community Feed</h2>
@@ -61,6 +71,9 @@ const Feed = () => {
             <strong>{post.author?.name || 'Unknown'}</strong> ·{' '}
             {new Date(post.createdAt).toLocaleString()}
           </p>
+          {post.author?._id === user?.id && (
+            <button onClick={() => handleDelete(post._id)} style={styles.deleteBtn}>Delete</button>
+            )}
         </div>
       ))}
     </div>
@@ -83,6 +96,16 @@ const styles = {
     fontSize: '14px',
     color: '#777',
   },
+  deleteBtn: {
+  backgroundColor: '#ff4d4f',
+  color: '#fff',
+  border: 'none',
+  padding: '6px 10px',
+  borderRadius: '5px',
+  cursor: 'pointer',
+  marginTop: '8px'
+}
+
 };
 
 export default Feed;
