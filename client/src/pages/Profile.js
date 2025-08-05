@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import API from '../utils/api';
 
@@ -21,7 +22,7 @@ const Profile = () => {
         bio: res.data.user.bio || '',
       });
     } catch (err) {
-      alert('Failed to load profile');
+      toast.error('Failed to load profile');
     }
   };
 
@@ -37,14 +38,14 @@ const Profile = () => {
     e.preventDefault();
     try {
       const res = await API.put(`/users/${id}`, editForm);
-      alert('Profile updated successfully');
+      toast.success('Profile updated successfully');
       setEditing(false);
       fetchProfile();
       if (loggedInUser?.id === id) {
         localStorage.setItem('user', JSON.stringify(res.data));
       }
     } catch (err) {
-      alert(err.response?.data?.message || 'Update failed');
+      toast.error(err.response?.data?.message || 'Update failed');
     }
   };
 
@@ -57,7 +58,7 @@ const Profile = () => {
     await API.delete(`/posts/${postId}`);
     setPosts(posts.filter((p) => p._id !== postId));
   } catch (err) {
-    alert('Error deleting post');
+    toast.error('Error deleting post');
   }
 };
 

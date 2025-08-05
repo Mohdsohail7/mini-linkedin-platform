@@ -1,4 +1,3 @@
-const { useId } = require("react");
 const Post = require("../models/Post");
 const User = require("../models/User");
 

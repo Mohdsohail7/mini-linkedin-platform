@@ -1,31 +1,25 @@
 {
-  "name": "linkedin",
+  "name": "linkedin-community-plateform",
   "version": "1.0.0",
-  "description": "backend for mini linkedin platform ",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-  },
+  "start": "concurrently --names \"server,client\" --prefix-colors \"cyan,green\" \"npm run server\" \"npm run client\"",
+  "server": "cd server && npm run dev",
+  "client": "cd client && npm start"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mohdsohail7/mini-linkedin-platform.git"
   },
-  "author": "Mohd Sohail",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Mohdsohail7/mini-linkedin-platform/issues"
   },
   "homepage": "https://github.com/Mohdsohail7/mini-linkedin-platform#readme",
-  "dependencies": {
-    "bcryptjs": "^3.0.2",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.1",
-    "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.17.0"
-  },
+  "description": "",
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "concurrently": "^9.2.0"
   }
 }

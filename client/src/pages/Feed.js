@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import API from '../utils/api';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +16,7 @@ const Feed = () => {
       const res = await API.get('/posts');
       setPosts(res.data);
     } catch (err) {
-      alert('Failed to load posts');
+      toast.error('Failed to load posts');
     }
   };
 
@@ -31,7 +32,7 @@ const Feed = () => {
       setContent('');
       fetchPosts();
     } catch (err) {
-      alert(err.response?.data?.message || 'Error creating post');
+      toast.error(err.response?.data?.message || 'Error creating post');
     }
   };
 
@@ -41,24 +42,25 @@ const Feed = () => {
     await API.delete(`/posts/${postId}`);
     setPosts(posts.filter((p) => p._id !== postId));
   } catch (err) {
-    alert('Error deleting post');
+    toast.error('Error deleting post');
   }
 };
 
   return (
-    <div className="container">
+    <div style={styles.wrapper}>
       <h2>Community Feed</h2>
 
       {token ? (
-        <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
+        <form onSubmit={handleSubmit} style={styles.form}>
           <textarea
             placeholder="What's on your mind?"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             rows="4"
             required
+            style={styles.textarea}
           />
-          <button type="submit">Post</button>
+          <button type="submit" style={styles.postButton}>Post</button>
         </form>
       ) : (
         <p style={{ color: '#555' }}>Login to create a post.</p>
@@ -81,6 +83,35 @@ const Feed = () => {
 };
 
 const styles = {
+  wrapper: {
+    maxWidth: '800px',
+    margin: '0 auto',
+    padding: '20px',
+  },
+  form: {
+    marginBottom: '20px',
+  },
+  textarea: {
+    width: '100%',
+    padding: '12px',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+    fontSize: '16px',
+    resize: 'vertical',
+    marginBottom: '12px',
+    boxSizing: 'border-box',
+  },
+  postButton: {
+    width: '100%',
+    backgroundColor: '#0073b1',
+    color: 'white',
+    padding: '10px',
+    fontSize: '16px',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+  },
   card: {
     backgroundColor: 'white',
     padding: '15px',

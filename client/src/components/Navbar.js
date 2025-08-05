@@ -12,11 +12,15 @@ const Navbar = () => {
     navigate('/login');
   };
 
+  const goToProfile = () => {
+    navigate(`/profile/${user?.id}`);
+  };
+
   return (
     <nav style={styles.nav}>
       <Link to="/" style={styles.logo}>LinkedIn Lite</Link>
 
-      <div>
+      <div style={styles.navRight}>
         {!token ? (
           <>
             <Link to="/register" style={styles.link}>Register</Link>
@@ -24,7 +28,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to={`/profile/${user?.id}`} style={styles.link}>Profile</Link>
+            <button onClick={goToProfile} style={styles.button}>Profile</button>
             <button onClick={handleLogout} style={styles.button}>Logout</button>
           </>
         )}
@@ -62,6 +66,11 @@ const styles = {
     border: 'none',
     borderRadius: '6px',
     cursor: 'pointer'
+  },
+  navRight: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '15px' // adds space between Profile and Logout
   }
 };
 
