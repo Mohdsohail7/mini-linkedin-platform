@@ -11,10 +11,12 @@ app.use(express.json());
 
 const auth = require("./routes/authRoute");
 const posts = require("./routes/posts");
+const users = require("./routes/users");
 
 // Routes
 app.use("/api/auth",auth);
 app.use("/api/posts",posts);
+app.use("/api/users", users);
 
 const port  = process.env.PORT || 4000;
 connectDb().then(() => {
