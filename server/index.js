@@ -7,7 +7,7 @@ const app = express();
 
 // middleware
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://mini-linkedin-platform-r891.vercel.app',
     credentials: true
 }));
 app.use(express.json());
