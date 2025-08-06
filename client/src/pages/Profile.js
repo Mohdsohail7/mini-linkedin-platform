@@ -68,13 +68,14 @@ const Profile = () => {
       <h2>Profile</h2>
 
       {editing ? (
-        <form onSubmit={handleUpdate}>
+        <form onSubmit={handleUpdate} style={styles.form}>
           <input
             type="text"
             name="name"
             value={editForm.name}
             onChange={handleChange}
             required
+            style={styles.input}
           />
           <textarea
             name="bio"
@@ -82,9 +83,10 @@ const Profile = () => {
             value={editForm.bio}
             onChange={handleChange}
             placeholder="Bio"
+            style={styles.textarea}
           ></textarea>
-          <button type="submit">Save</button>
-          <button type="button" onClick={() => setEditing(false)} style={{ marginLeft: '10px' }}>
+          <button type="submit" style={styles.button}>Save</button>
+          <button type="button" onClick={() => setEditing(false)} style={{ ...styles.button, backgroundColor: '#0073b1', marginTop: '10px' }}>
             Cancel
           </button>
         </form>
@@ -119,6 +121,41 @@ const Profile = () => {
 };
 
 const styles = {
+  form: {
+  maxWidth: '1000px',
+  marginTop: '20px',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '10px',
+},
+input: {
+  padding: '12px',
+  fontSize: '16px',
+  border: '1px solid #ccc',
+  borderRadius: '6px',
+  width: '100%',
+  boxSizing: 'border-box',
+},
+textarea: {
+  padding: '12px',
+  fontSize: '16px',
+  border: '1px solid #ccc',
+  borderRadius: '6px',
+  width: '100%',
+  boxSizing: 'border-box',
+},
+button: {
+  padding: '12px',
+  backgroundColor: '#0073b1',
+  color: '#fff',
+  fontSize: '16px',
+  fontWeight: 'bold',
+  border: 'none',
+  borderRadius: '6px',
+  cursor: 'pointer',
+  width: '100%',
+  boxSizing: 'border-box',
+},
   card: {
     backgroundColor: 'white',
     padding: '15px',
